@@ -8,8 +8,8 @@
   --accent-dim: rgba(0, 255, 156, 0.14);
   --line: #262626;
   --radius: 16px;
-  --font-display: "Syne", system-ui, sans-serif;
-  --font-body: "IBM Plex Mono", ui-monospace, monospace;
+  --font-display: var(--font-syne), "Syne", system-ui, sans-serif;
+  --font-body: var(--font-ibm), "IBM Plex Mono", ui-monospace, monospace;
 }
 
 * { box-sizing: border-box; }
