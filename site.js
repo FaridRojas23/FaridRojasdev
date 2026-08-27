@@ -1,7 +1,18 @@
 (function () {
   const path = (location.pathname.replace(/\/$/, "") || "/").toLowerCase();
   const is = (name) =>
-    path.endsWith(name) || (name === "/index.html" && (path === "/" || path.endsWith("/faridrojasdev")));
+    path.endsWith(name) ||
+    (name === "/index.html" && (path === "/" || path.endsWith("/faridrojasdev")));
+
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  document.body.classList.add(reduceMotion ? "is-ready" : "is-entering");
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      document.body.classList.remove("is-entering");
+      document.body.classList.add("is-ready");
+    });
+  });
 
   const navHtml = `
   <header class="top">
@@ -37,6 +48,41 @@
   if (btn && nav) {
     btn.addEventListener("click", () => nav.classList.toggle("open"));
   }
+
+  function goTo(href) {
+    if (reduceMotion) {
+      window.location.href = href;
+      return;
+    }
+    document.body.classList.remove("is-ready");
+    document.body.classList.add("is-leaving");
+    setTimeout(() => {
+      window.location.href = href;
+    }, 280);
+  }
+
+  document.addEventListener("click", (e) => {
+    const link = e.target.closest("a");
+    if (!link) return;
+    const href = link.getAttribute("href");
+    if (!href || href.startsWith("#") || href.startsWith("mailto:") || href.startsWith("tel:")) return;
+    if (link.target === "_blank" || link.hasAttribute("download")) return;
+    if (/^https?:\/\//i.test(href) && !href.includes(location.host)) return;
+
+    const current = location.pathname.replace(/\/$/, "") || "/";
+    let nextPath = href;
+    try {
+      nextPath = new URL(href, location.origin).pathname.replace(/\/$/, "") || "/";
+    } catch (_) {
+      return;
+    }
+    if (nextPath === current || (current === "/" && (nextPath === "/index.html" || nextPath === "/"))) {
+      return;
+    }
+
+    e.preventDefault();
+    goTo(href);
+  });
 
   document.querySelectorAll("[data-cv-tab]").forEach((button) => {
     button.addEventListener("click", () => {
