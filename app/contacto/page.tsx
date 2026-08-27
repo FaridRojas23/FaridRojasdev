@@ -19,7 +19,7 @@ export default function ContactoPage() {
         </section>
 
         <aside className="side-info">
-          <a className="info-block" href="tel:+51928799438">
+          <a className="info-block" href="tel:+51900734479">
             <div className="info-ico" aria-hidden="true">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
                 <path d="M6.5 3.5h3l1.5 4-2 1.5a12 12 0 0 0 6 6l1.5-2 4 1.5v3c0 1-1 2-2 2C9 19.5 4.5 15 4.5 5.5c0-1 1-2 2-2z" />
@@ -27,10 +27,10 @@ export default function ContactoPage() {
             </div>
             <div className="info-copy">
               <span className="info-label">Teléfono</span>
-              <strong className="info-value">(+51) 928 799 438</strong>
+              <strong className="info-value">(+51) 900 734 479</strong>
             </div>
           </a>
-          <a className="info-block" href="mailto:faridrojas23@gmail.com">
+          <a className="info-block" href="mailto:carlosfarirojasgonzal@gmail.com">
             <div className="info-ico" aria-hidden="true">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
                 <path d="M4 6h16v12H4z" />
@@ -39,7 +39,7 @@ export default function ContactoPage() {
             </div>
             <div className="info-copy">
               <span className="info-label">Correo</span>
-              <strong className="info-value">faridrojas23@gmail.com</strong>
+              <strong className="info-value">carlosfarirojasgonzal@gmail.com</strong>
             </div>
           </a>
           <div className="info-block">

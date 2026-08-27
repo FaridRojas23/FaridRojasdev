@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import TechGrid from "@/components/TechGrid";
 
 const tabs = [
   { id: "exp", label: "Experiencia" },
@@ -139,48 +140,7 @@ export default function CurriculumView() {
           </div>
 
           <h3 className="tech-title">Tecnologías</h3>
-          <div className="tech-grid">
-            <div className="tech">
-              <span className="tech-badge js">JS</span>
-              <strong>JavaScript</strong>
-            </div>
-            <div className="tech">
-              <span className="tech-badge node">N</span>
-              <strong>Node.js</strong>
-            </div>
-            <div className="tech">
-              <span className="tech-badge py">Py</span>
-              <strong>Python</strong>
-            </div>
-            <div className="tech">
-              <span className="tech-badge pw">Pw</span>
-              <strong>Playwright</strong>
-            </div>
-            <div className="tech">
-              <span className="tech-badge xl">Xl</span>
-              <strong>Excel</strong>
-            </div>
-            <div className="tech">
-              <span className="tech-badge bi">BI</span>
-              <strong>Power BI</strong>
-            </div>
-            <div className="tech">
-              <span className="tech-badge api">API</span>
-              <strong>FastAPI</strong>
-            </div>
-            <div className="tech">
-              <span className="tech-badge git">Gh</span>
-              <strong>GitHub</strong>
-            </div>
-            <div className="tech">
-              <span className="tech-badge html">H</span>
-              <strong>HTML / CSS</strong>
-            </div>
-            <div className="tech">
-              <span className="tech-badge sql">SQL</span>
-              <strong>SQL</strong>
-            </div>
-          </div>
+          {tab === "skills" ? <TechGrid /> : null}
         </section>
 
         <section className={`cv-panel${tab === "certs" ? " active" : ""}`} id="certs">

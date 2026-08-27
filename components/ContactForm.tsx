@@ -2,6 +2,8 @@
 
 import type { FormEvent } from "react";
 
+const EMAIL = "carlosfarirojasgonzal@gmail.com";
+
 export default function ContactForm() {
   function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -16,7 +18,7 @@ export default function ContactForm() {
       `Hola Farid,\n\nSoy ${nombre} ${apellido}.\nCorreo: ${correo}\nTeléfono: ${telefono}\nServicio: ${servicio}\n\n${mensaje}`
     );
     const subject = encodeURIComponent(`Contacto web — ${servicio || "consulta"}`);
-    window.location.href = `mailto:faridrojas23@gmail.com?subject=${subject}&body=${body}`;
+    window.location.href = `mailto:${EMAIL}?subject=${subject}&body=${body}`;
   }
 
   return (
@@ -57,7 +59,6 @@ export default function ContactForm() {
           <button className="btn btn-solid" type="submit">
             Enviar mensaje
           </button>
-          <p className="form-note">Abre tu correo con el mensaje listo para faridrojas23@gmail.com.</p>
         </div>
       </div>
     </form>

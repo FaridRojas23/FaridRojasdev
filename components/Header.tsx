@@ -25,14 +25,6 @@ export default function Header() {
         <Link className="brand" href="/">
           Farid<span>.</span>
         </Link>
-        <button
-          className="menu-toggle"
-          type="button"
-          aria-label="Menú"
-          onClick={() => setOpen((value) => !value)}
-        >
-          Menú
-        </button>
         <nav className={`nav${open ? " open" : ""}`} id="mainNav">
           {links.map((link) => (
             <Link
@@ -45,9 +37,14 @@ export default function Header() {
             </Link>
           ))}
         </nav>
-        <Link className="btn btn-solid" href="/contacto">
-          Contáctame
-        </Link>
+        <button
+          className="menu-toggle"
+          type="button"
+          aria-label="Menú"
+          onClick={() => setOpen((value) => !value)}
+        >
+          Menú
+        </button>
       </div>
     </header>
   );
