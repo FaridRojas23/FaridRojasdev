@@ -30,18 +30,8 @@
     </div>
   </header>`;
 
-  const footerHtml = `
-  <footer class="site-footer">
-    <div class="wrap">
-      <div>© ${new Date().getFullYear()} Carlos Farid Rojas Gonzales</div>
-      <div>Automatización · Datos · Logística · Lima, Perú</div>
-    </div>
-  </footer>`;
-
   const navRoot = document.getElementById("nav-root");
-  const footerRoot = document.getElementById("footer-root");
   if (navRoot) navRoot.outerHTML = navHtml;
-  if (footerRoot) footerRoot.outerHTML = footerHtml;
 
   const btn = document.getElementById("menuBtn");
   const nav = document.getElementById("mainNav");
