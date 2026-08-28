@@ -1,8 +1,7 @@
 "use client";
 
 import type { FormEvent } from "react";
-
-const EMAIL = "rojasgonzales2022@gmail.com";
+import { gmailComposeUrl } from "@/lib/contact-links";
 
 const phonePrefixes = [
   { value: "+51", label: "+51" },
@@ -26,11 +25,9 @@ export default function ContactForm() {
     const servicio = data.get("servicio") || "";
     const mensaje = data.get("mensaje") || "";
     const telefonoCompleto = telefono ? `${prefijo} ${telefono}` : "";
-    const body = encodeURIComponent(
-      `Hola Farid,\n\nSoy ${nombre} ${apellido}.\nCorreo: ${correo}\nTeléfono: ${telefonoCompleto}\nServicio: ${servicio}\n\n${mensaje}`
-    );
-    const subject = encodeURIComponent(`Contacto web — ${servicio || "consulta"}`);
-    window.location.href = `mailto:${EMAIL}?subject=${subject}&body=${body}`;
+    const body = `Hola Farid,\n\nSoy ${nombre} ${apellido}.\nCorreo: ${correo}\nTeléfono: ${telefonoCompleto}\nServicio: ${servicio}\n\n${mensaje}`;
+    const subject = `Contacto web — ${servicio || "consulta"}`;
+    window.open(gmailComposeUrl({ subject, body }), "_blank", "noopener,noreferrer");
   }
 
   return (
@@ -52,7 +49,7 @@ export default function ContactForm() {
               aria-label="Correo electrónico"
             />
           </div>
-          <div className="form-field phone-field">
+          <div className="form-field">
             <div className="phone-input-group">
               <select name="prefijo" defaultValue="+51" className="phone-prefix" aria-label="Prefijo telefónico">
                 {phonePrefixes.map((prefix) => (

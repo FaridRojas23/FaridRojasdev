@@ -24,24 +24,9 @@ body {
   font-family: var(--font-body);
   font-size: 17px;
   line-height: 1.6;
-  opacity: 1;
-  transform: none;
-  transition: opacity 0.38s ease, transform 0.38s ease;
-}
-body.is-leaving {
-  opacity: 0;
-  transform: translateY(10px);
-}
-body.is-entering {
-  opacity: 0;
-  transform: translateY(14px);
-}
-body.is-ready {
-  opacity: 1;
-  transform: none;
 }
 @media (prefers-reduced-motion: reduce) {
-  body, body.is-leaving, body.is-entering, .nav a::after {
+  body, .nav a::after {
     transition: none !important;
     animation: none !important;
     transform: none !important;
@@ -691,11 +676,6 @@ input:focus, select:focus, textarea:focus {
   border-color: var(--accent);
 }
 textarea { min-height: 120px; resize: vertical; }
-.form-note {
-  margin-top: 0.85rem;
-  color: var(--muted);
-  font-size: 0.8rem;
-}
 .side-info {
   display: grid;
   gap: 1.7rem;
