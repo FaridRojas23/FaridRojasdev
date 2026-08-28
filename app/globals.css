@@ -397,18 +397,24 @@ main {
   background-size: 28px 28px;
   mask-image: linear-gradient(180deg, black 0%, black 70%, transparent 100%);
 }
-.cv-scanline {
+.cv-shutter {
   position: absolute;
   inset: 0;
+  z-index: 6;
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
   pointer-events: none;
-  z-index: 2;
-  opacity: 0;
-  background: linear-gradient(
-    180deg,
-    transparent 42%,
-    rgba(0, 255, 156, 0.14) 50%,
-    transparent 58%
-  );
+  overflow: hidden;
+}
+.cv-shutter-col {
+  height: 100%;
+  background: linear-gradient(180deg, #0a0a0a 0%, #111111 48%, #0a0a0a 100%);
+  border-right: 1px solid rgba(0, 255, 156, 0.22);
+  box-shadow: inset 0 0 24px rgba(0, 255, 156, 0.04);
+  will-change: transform;
+}
+.cv-shutter-col:last-child {
+  border-right: 0;
 }
 .cv-content {
   position: relative;

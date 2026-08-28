@@ -1,8 +1,13 @@
 "use client";
 
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import TechGrid from "@/components/TechGrid";
+
+const SHUTTER_COLS = 9;
+const SHUTTER_CLOSE = 0.11;
+const SHUTTER_OPEN = 0.1;
+const SHUTTER_STAGGER = 0.018;
 
 const tabs = [
   { id: "exp", label: "Experiencia" },
@@ -22,15 +27,15 @@ function TabContent({ tab }: { tab: TabId }) {
   if (tab === "exp") {
     return (
       <>
-        <h2 className="cv-anim">
+        <h2>
           <span className="accent">▣</span> Mi experiencia
         </h2>
-        <div className="cv-summary cv-anim">
+        <div className="cv-summary">
           Perfil híbrido: negocio + operaciones + automatización. Armo plataformas y scripts que extraen datos
           solos, generan KPIs de flota/combustible y dejan reportes listos para gerencia.
         </div>
         <div className="timeline">
-          <article className="timeline-item cv-anim">
+          <article className="timeline-item">
             <div className="meta-row">
               <h3>Analista de Automatización de Procesos Logísticos</h3>
               <span className="when">2024 — Actualidad</span>
@@ -43,7 +48,7 @@ function TabContent({ tab }: { tab: TabId }) {
               costos por provincia. Control de flota, Excel/Power BI y reportes sin fricción operativa.
             </p>
           </article>
-          <article className="timeline-item cv-anim">
+          <article className="timeline-item">
             <div className="meta-row">
               <h3>Gestión documental y datos operativos</h3>
               <span className="when">Previo — 2024</span>
@@ -64,11 +69,11 @@ function TabContent({ tab }: { tab: TabId }) {
   if (tab === "edu") {
     return (
       <>
-        <h2 className="cv-anim">
+        <h2>
           <span className="accent">▣</span> Educación
         </h2>
         <div className="timeline">
-          <article className="timeline-item cv-anim">
+          <article className="timeline-item">
             <div className="meta-row">
               <h3>Administración de Negocios Internacionales</h3>
               <span className="when">UTP</span>
@@ -88,46 +93,46 @@ function TabContent({ tab }: { tab: TabId }) {
   if (tab === "skills") {
     return (
       <>
-        <h2 className="cv-anim">
+        <h2>
           <span className="accent">▣</span> Habilidades
         </h2>
         <div className="skill-grid">
-          <div className="skill cv-anim">
+          <div className="skill">
             <div className="skill-top">
               <span className="skill-ico">⚙</span>
               <strong>Automatización</strong>
             </div>
             <span>Python · Playwright · scripts de extracción</span>
           </div>
-          <div className="skill cv-anim">
+          <div className="skill">
             <div className="skill-top">
               <span className="skill-ico">▣</span>
               <strong>Datos</strong>
             </div>
             <span>Excel avanzado · limpieza · reportes</span>
           </div>
-          <div className="skill cv-anim">
+          <div className="skill">
             <div className="skill-top">
               <span className="skill-ico">◈</span>
               <strong>BI</strong>
             </div>
             <span>Power BI (intermedio) · KPIs operativos</span>
           </div>
-          <div className="skill cv-anim">
+          <div className="skill">
             <div className="skill-top">
               <span className="skill-ico">⬡</span>
               <strong>Operaciones</strong>
             </div>
             <span>Flota · combustible · TSM/ERP</span>
           </div>
-          <div className="skill cv-anim">
+          <div className="skill">
             <div className="skill-top">
               <span className="skill-ico">⌘</span>
               <strong>Web</strong>
             </div>
             <span>Dashboards · FastAPI · GitHub · Vercel/Render</span>
           </div>
-          <div className="skill cv-anim">
+          <div className="skill">
             <div className="skill-top">
               <span className="skill-ico">✦</span>
               <strong>IA aplicada</strong>
@@ -135,8 +140,8 @@ function TabContent({ tab }: { tab: TabId }) {
             <span>Agentes · productividad · documentación</span>
           </div>
         </div>
-        <h3 className="tech-title cv-anim">Tecnologías</h3>
-        <p className="tech-subtitle cv-anim">
+        <h3 className="tech-title">Tecnologías</h3>
+        <p className="tech-subtitle">
           Tecnologías que he utilizado en proyectos personales y profesionales.
         </p>
         <TechGrid />
@@ -147,23 +152,23 @@ function TabContent({ tab }: { tab: TabId }) {
   if (tab === "certs") {
     return (
       <>
-        <h2 className="cv-anim">
+        <h2>
           <span className="accent">▣</span> Idiomas
         </h2>
         <div className="skill-grid">
-          <div className="skill cv-anim">
+          <div className="skill">
             <strong>Español</strong>
             <span>Nativo</span>
           </div>
-          <div className="skill cv-anim">
+          <div className="skill">
             <strong>Inglés</strong>
             <span>Intermedio</span>
           </div>
-          <div className="skill cv-anim">
+          <div className="skill">
             <strong>Ruso</strong>
             <span>Básico</span>
           </div>
-          <div className="skill cv-anim">
+          <div className="skill">
             <strong>Italiano / Portugués</strong>
             <span>Básico</span>
           </div>
@@ -174,10 +179,10 @@ function TabContent({ tab }: { tab: TabId }) {
 
   return (
     <>
-      <h2 className="cv-anim">
+      <h2>
         <span className="accent">▣</span> Sobre mí
       </h2>
-      <div className="cv-summary cv-anim">
+      <div className="cv-summary">
         Soy Carlos Farid Rojas Gonzales, de Puente Piedra (Lima). Me interesa convertir el caos operativo diario
         (Excels, estaciones, despachos) en sistemas simples que cualquiera del equipo pueda usar. Busco roles de
         automatización de procesos, análisis de operaciones o BI junior en logística/transporte.
@@ -193,8 +198,7 @@ export default function CurriculumView() {
   const navRef = useRef<HTMLElement>(null);
   const indicatorRef = useRef<HTMLDivElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
-  const contentRef = useRef<HTMLDivElement>(null);
-  const scanRef = useRef<HTMLDivElement>(null);
+  const shutterRef = useRef<HTMLDivElement>(null);
   const buttonRefs = useRef<Partial<Record<TabId, HTMLButtonElement>>>({});
 
   function moveIndicator(tabId: TabId) {
@@ -209,94 +213,69 @@ export default function CurriculumView() {
     gsap.to(indicator, {
       y: btnRect.top - navTop,
       height: btnRect.height,
-      duration: 0.5,
+      duration: 0.28,
       ease: "power3.out",
     });
   }
 
-  function playScanline() {
-    const scan = scanRef.current;
-    if (!scan || prefersReducedMotion()) return;
-
-    gsap.fromTo(
-      scan,
-      { opacity: 0.55, yPercent: -120 },
-      { opacity: 0, yPercent: 120, duration: 0.65, ease: "power1.inOut" }
-    );
+  function getShutterCols() {
+    const shutter = shutterRef.current;
+    if (!shutter) return null;
+    return shutter.querySelectorAll<HTMLElement>(".cv-shutter-col");
   }
 
-  function animatePanelEnter() {
-    const content = contentRef.current;
-    if (!content || prefersReducedMotion()) return;
-
-    const items = content.querySelectorAll(".cv-anim");
-
-    gsap.fromTo(
-      content,
-      { opacity: 0, x: 36, filter: "blur(10px)" },
-      {
-        opacity: 1,
-        x: 0,
-        filter: "blur(0px)",
-        duration: 0.55,
-        ease: "power3.out",
-        onComplete: () => {
-          setIsSwitching(false);
-        },
-      }
-    );
-
-    if (items.length) {
-      gsap.fromTo(
-        items,
-        { opacity: 0, y: 22, scale: 0.97 },
-        {
-          opacity: 1,
-          y: 0,
-          scale: 1,
-          duration: 0.48,
-          stagger: 0.06,
-          ease: "power2.out",
-          delay: 0.1,
-        }
-      );
-    }
-  }
-
-  function handleTabChange(nextTab: TabId) {
-    if (nextTab === tab || isSwitching) return;
-
-    const content = contentRef.current;
-    if (!content || prefersReducedMotion()) {
+  function playShutterTransition(nextTab: TabId) {
+    const cols = getShutterCols();
+    if (!cols?.length) {
       setTab(nextTab);
       return;
     }
 
     setIsSwitching(true);
+    gsap.set(cols, { xPercent: 100 });
 
-    gsap.to(content, {
-      opacity: 0,
-      x: -28,
-      filter: "blur(8px)",
-      duration: 0.24,
-      ease: "power2.in",
+    const tl = gsap.timeline({
       onComplete: () => {
-        setTab(nextTab);
+        gsap.set(cols, { xPercent: 100 });
+        setIsSwitching(false);
       },
     });
 
-    playScanline();
+    tl.to(cols, {
+      xPercent: 0,
+      duration: SHUTTER_CLOSE,
+      stagger: { each: SHUTTER_STAGGER, from: "end" },
+      ease: "power4.in",
+    });
+
+    tl.call(() => setTab(nextTab));
+
+    tl.to(cols, {
+      xPercent: -100,
+      duration: SHUTTER_OPEN,
+      stagger: { each: SHUTTER_STAGGER, from: "start" },
+      ease: "power4.out",
+    });
+  }
+
+  function handleTabChange(nextTab: TabId) {
+    if (nextTab === tab || isSwitching) return;
+
+    if (prefersReducedMotion()) {
+      setTab(nextTab);
+      return;
+    }
+
+    playShutterTransition(nextTab);
   }
 
   useLayoutEffect(() => {
     moveIndicator(tab);
+    const cols = getShutterCols();
+    if (cols) gsap.set(cols, { xPercent: 100 });
   }, [tab]);
 
-  useEffect(() => {
-    animatePanelEnter();
-  }, [tab]);
-
-  useEffect(() => {
+  useLayoutEffect(() => {
     const onResize = () => moveIndicator(tab);
     window.addEventListener("resize", onResize);
     return () => window.removeEventListener("resize", onResize);
@@ -325,9 +304,13 @@ export default function CurriculumView() {
 
       <div className="cv-content-stage" ref={stageRef}>
         <div className="cv-stage-grid" aria-hidden="true" />
-        <div className="cv-scanline" ref={scanRef} aria-hidden="true" />
-        <div className="cv-content" ref={contentRef}>
+        <div className="cv-content">
           <TabContent tab={tab} />
+        </div>
+        <div className="cv-shutter" ref={shutterRef} aria-hidden="true">
+          {Array.from({ length: SHUTTER_COLS }, (_, i) => (
+            <div className="cv-shutter-col" key={i} />
+          ))}
         </div>
       </div>
     </div>
