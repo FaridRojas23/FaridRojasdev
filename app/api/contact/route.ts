@@ -13,10 +13,10 @@ type ContactPayload = {
 
 export async function POST(request: Request) {
   try {
-    const accessKey = process.env.WEB3FORMS_ACCESS_KEY;
+    const accessKey = process.env.WEB3FORMS_ACCESS_KEY?.trim();
     if (!accessKey) {
       return NextResponse.json(
-        { ok: false, error: "El formulario aún no está configurado." },
+        { ok: false, error: "El formulario aún no está configurado (falta WEB3FORMS_ACCESS_KEY)." },
         { status: 503 }
       );
     }
@@ -50,6 +50,25 @@ export async function POST(request: Request) {
     }
 
     const telefonoCompleto = telefono ? `${prefijo} ${telefono}` : "No indicado";
+    const fullName = `${nombre} ${apellido}`.trim();
+
+    const payload = {
+      access_key: accessKey,
+      subject: `Contacto web — ${servicio}`,
+      from_name: fullName,
+      name: fullName,
+      email: correo,
+      phone: telefonoCompleto,
+      servicio,
+      message: [
+        `Nombre: ${fullName}`,
+        `Correo: ${correo}`,
+        `Teléfono: ${telefonoCompleto}`,
+        `Servicio: ${servicio}`,
+        "",
+        mensaje || "(Sin mensaje)",
+      ].join("\n"),
+    };
 
     const response = await fetch("https://api.web3forms.com/submit", {
       method: "POST",
@@ -57,31 +76,38 @@ export async function POST(request: Request) {
         "Content-Type": "application/json",
         Accept: "application/json",
       },
-      body: JSON.stringify({
-        access_key: accessKey,
-        subject: `Contacto web — ${servicio}`,
-        from_name: "Portafolio Farid Rojas",
-        name: `${nombre} ${apellido}`.trim(),
-        email: correo,
-        phone: telefonoCompleto,
-        service: servicio,
-        message: mensaje || "(Sin mensaje)",
-      }),
+      body: JSON.stringify(payload),
     });
 
-    const result = (await response.json()) as { success?: boolean; message?: string };
+    const raw = await response.text();
+    let result: { success?: boolean; message?: string } = {};
+    try {
+      result = JSON.parse(raw) as { success?: boolean; message?: string };
+    } catch {
+      return NextResponse.json(
+        {
+          ok: false,
+          error: `Web3Forms respondió inválido (${response.status}): ${raw.slice(0, 180)}`,
+        },
+        { status: 502 }
+      );
+    }
 
     if (!response.ok || !result.success) {
       return NextResponse.json(
-        { ok: false, error: result.message || "No se pudo enviar el mensaje. Intenta de nuevo." },
+        {
+          ok: false,
+          error: result.message || `Web3Forms rechazó el envío (${response.status}).`,
+        },
         { status: 502 }
       );
     }
 
     return NextResponse.json({ ok: true });
-  } catch {
+  } catch (error) {
+    const detail = error instanceof Error ? error.message : "Error desconocido";
     return NextResponse.json(
-      { ok: false, error: "Error del servidor. Intenta de nuevo." },
+      { ok: false, error: `Error del servidor: ${detail}` },
       { status: 500 }
     );
   }
