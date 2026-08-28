@@ -1,7 +1,6 @@
 "use client";
 
-import type { FormEvent } from "react";
-import { gmailComposeUrl } from "@/lib/contact-links";
+import { useState, type FormEvent } from "react";
 
 const phonePrefixes = [
   { value: "+51", label: "+51" },
@@ -14,20 +13,47 @@ const phonePrefixes = [
 ];
 
 export default function ContactForm() {
-  function onSubmit(event: FormEvent<HTMLFormElement>) {
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [errorMessage, setErrorMessage] = useState("");
+
+  async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    const nombre = data.get("nombre") || "";
-    const apellido = data.get("apellido") || "";
-    const correo = data.get("correo") || "";
-    const prefijo = data.get("prefijo") || "+51";
-    const telefono = data.get("telefono") || "";
-    const servicio = data.get("servicio") || "";
-    const mensaje = data.get("mensaje") || "";
-    const telefonoCompleto = telefono ? `${prefijo} ${telefono}` : "";
-    const body = `Hola Farid,\n\nSoy ${nombre} ${apellido}.\nCorreo: ${correo}\nTeléfono: ${telefonoCompleto}\nServicio: ${servicio}\n\n${mensaje}`;
-    const subject = `Contacto web — ${servicio || "consulta"}`;
-    window.open(gmailComposeUrl({ subject, body }), "_blank", "noopener,noreferrer");
+    const form = event.currentTarget;
+    const data = new FormData(form);
+
+    setStatus("loading");
+    setErrorMessage("");
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          nombre: data.get("nombre"),
+          apellido: data.get("apellido"),
+          correo: data.get("correo"),
+          prefijo: data.get("prefijo"),
+          telefono: data.get("telefono"),
+          servicio: data.get("servicio"),
+          mensaje: data.get("mensaje"),
+          website: data.get("website"),
+        }),
+      });
+
+      const result = (await response.json()) as { ok?: boolean; error?: string };
+
+      if (!response.ok || !result.ok) {
+        setStatus("error");
+        setErrorMessage(result.error || "No se pudo enviar el mensaje.");
+        return;
+      }
+
+      setStatus("success");
+      form.reset();
+    } catch {
+      setStatus("error");
+      setErrorMessage("Error de conexión. Intenta de nuevo.");
+    }
   }
 
   return (
@@ -79,10 +105,27 @@ export default function ContactForm() {
             aria-label="Mensaje"
           />
         </div>
+        {/* Honeypot: invisible for users, catches bots */}
+        <input
+          name="website"
+          type="text"
+          tabIndex={-1}
+          autoComplete="off"
+          aria-hidden="true"
+          className="form-honeypot"
+        />
         <div className="full">
-          <button className="btn btn-solid" type="submit">
-            Enviar mensaje
+          <button className="btn btn-solid" type="submit" disabled={status === "loading"}>
+            {status === "loading" ? "Enviando…" : "Enviar mensaje"}
           </button>
+          {status === "success" ? (
+            <p className="form-status form-status--ok">
+              Mensaje enviado. Te responderé pronto a tu correo.
+            </p>
+          ) : null}
+          {status === "error" ? (
+            <p className="form-status form-status--error">{errorMessage}</p>
+          ) : null}
         </div>
       </div>
     </form>
