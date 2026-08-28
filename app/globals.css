@@ -397,24 +397,33 @@ main {
   background-size: 28px 28px;
   mask-image: linear-gradient(180deg, black 0%, black 70%, transparent 100%);
 }
-.cv-shutter {
+.cv-stage-progress {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 2px;
+  width: 0;
+  background: var(--accent);
+  z-index: 7;
+  pointer-events: none;
+  box-shadow: 0 0 12px rgba(0, 255, 156, 0.45);
+}
+.cv-wipe {
   position: absolute;
   inset: 0;
-  z-index: 6;
-  display: grid;
-  grid-template-columns: repeat(9, 1fr);
+  z-index: 5;
   pointer-events: none;
-  overflow: hidden;
-}
-.cv-shutter-col {
-  height: 100%;
-  background: linear-gradient(180deg, #0a0a0a 0%, #111111 48%, #0a0a0a 100%);
-  border-right: 1px solid rgba(0, 255, 156, 0.22);
-  box-shadow: inset 0 0 24px rgba(0, 255, 156, 0.04);
+  background: linear-gradient(105deg, #080808 0%, #101010 55%, #0a0a0a 100%);
   will-change: transform;
 }
-.cv-shutter-col:last-child {
-  border-right: 0;
+.cv-wipe-edge {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: var(--accent);
+  box-shadow: 0 0 16px rgba(0, 255, 156, 0.55);
 }
 .cv-content {
   position: relative;

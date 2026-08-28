@@ -4,10 +4,8 @@ import { useLayoutEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import TechGrid from "@/components/TechGrid";
 
-const SHUTTER_COLS = 9;
-const SHUTTER_CLOSE = 0.11;
-const SHUTTER_OPEN = 0.1;
-const SHUTTER_STAGGER = 0.018;
+const WIPE_IN = 0.17;
+const WIPE_OUT = 0.15;
 
 const tabs = [
   { id: "exp", label: "Experiencia" },
@@ -198,7 +196,10 @@ export default function CurriculumView() {
   const navRef = useRef<HTMLElement>(null);
   const indicatorRef = useRef<HTMLDivElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
-  const shutterRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
+  const wipeRef = useRef<HTMLDivElement>(null);
+  const progressRef = useRef<HTMLDivElement>(null);
+  const transitionRef = useRef<gsap.core.Timeline | null>(null);
   const buttonRefs = useRef<Partial<Record<TabId, HTMLButtonElement>>>({});
 
   function moveIndicator(tabId: TabId) {
@@ -218,44 +219,54 @@ export default function CurriculumView() {
     });
   }
 
-  function getShutterCols() {
-    const shutter = shutterRef.current;
-    if (!shutter) return null;
-    return shutter.querySelectorAll<HTMLElement>(".cv-shutter-col");
-  }
+  function playPanelTransition(nextTab: TabId) {
+    const wipe = wipeRef.current;
+    const content = contentRef.current;
+    const progress = progressRef.current;
 
-  function playShutterTransition(nextTab: TabId) {
-    const cols = getShutterCols();
-    if (!cols?.length) {
+    if (!wipe || !content) {
       setTab(nextTab);
       return;
     }
 
+    if (transitionRef.current) {
+      transitionRef.current.kill();
+    }
+
     setIsSwitching(true);
-    gsap.set(cols, { xPercent: 100 });
+
+    gsap.set(wipe, { xPercent: 100 });
+    gsap.set(progress, { width: "0%" });
 
     const tl = gsap.timeline({
       onComplete: () => {
-        gsap.set(cols, { xPercent: 100 });
+        gsap.set(wipe, { xPercent: 100 });
+        gsap.set(progress, { width: "0%" });
+        gsap.set(content, { opacity: 1 });
         setIsSwitching(false);
+        transitionRef.current = null;
       },
     });
 
-    tl.to(cols, {
-      xPercent: 0,
-      duration: SHUTTER_CLOSE,
-      stagger: { each: SHUTTER_STAGGER, from: "end" },
-      ease: "power4.in",
-    });
+    transitionRef.current = tl;
+
+    tl.to(progress, { width: "100%", duration: WIPE_IN, ease: "power2.in" }, 0);
+    tl.to(
+      wipe,
+      { xPercent: 0, duration: WIPE_IN, ease: "power3.in" },
+      0
+    );
+    tl.to(content, { opacity: 0, duration: WIPE_IN * 0.65, ease: "power1.in" }, 0);
 
     tl.call(() => setTab(nextTab));
 
-    tl.to(cols, {
-      xPercent: -100,
-      duration: SHUTTER_OPEN,
-      stagger: { each: SHUTTER_STAGGER, from: "start" },
-      ease: "power4.out",
-    });
+    tl.set(content, { opacity: 0 });
+    tl.to(
+      wipe,
+      { xPercent: -100, duration: WIPE_OUT, ease: "power3.out" }
+    );
+    tl.to(content, { opacity: 1, duration: WIPE_OUT * 0.85, ease: "power2.out" }, `-=${WIPE_OUT * 0.7}`);
+    tl.to(progress, { width: "0%", duration: WIPE_OUT * 0.5, ease: "power2.out" }, `-=${WIPE_OUT}`);
   }
 
   function handleTabChange(nextTab: TabId) {
@@ -266,14 +277,19 @@ export default function CurriculumView() {
       return;
     }
 
-    playShutterTransition(nextTab);
+    playPanelTransition(nextTab);
   }
 
   useLayoutEffect(() => {
     moveIndicator(tab);
-    const cols = getShutterCols();
-    if (cols) gsap.set(cols, { xPercent: 100 });
   }, [tab]);
+
+  useLayoutEffect(() => {
+    const wipe = wipeRef.current;
+    const progress = progressRef.current;
+    if (wipe) gsap.set(wipe, { xPercent: 100 });
+    if (progress) gsap.set(progress, { width: "0%" });
+  }, []);
 
   useLayoutEffect(() => {
     const onResize = () => moveIndicator(tab);
@@ -303,14 +319,13 @@ export default function CurriculumView() {
       </aside>
 
       <div className="cv-content-stage" ref={stageRef}>
+        <div className="cv-stage-progress" ref={progressRef} aria-hidden="true" />
         <div className="cv-stage-grid" aria-hidden="true" />
-        <div className="cv-content">
+        <div className="cv-content" ref={contentRef}>
           <TabContent tab={tab} />
         </div>
-        <div className="cv-shutter" ref={shutterRef} aria-hidden="true">
-          {Array.from({ length: SHUTTER_COLS }, (_, i) => (
-            <div className="cv-shutter-col" key={i} />
-          ))}
+        <div className="cv-wipe" ref={wipeRef} aria-hidden="true">
+          <span className="cv-wipe-edge" />
         </div>
       </div>
     </div>
