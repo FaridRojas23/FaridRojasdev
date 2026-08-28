@@ -153,23 +153,31 @@ function TabContent({ tab }: { tab: TabId }) {
         <h2>
           <span className="accent">▣</span> Idiomas
         </h2>
-        <div className="skill-grid">
-          <div className="skill">
-            <strong>Español</strong>
-            <span>Nativo</span>
-          </div>
-          <div className="skill">
-            <strong>Inglés</strong>
-            <span>Intermedio</span>
-          </div>
-          <div className="skill">
-            <strong>Ruso</strong>
-            <span>Básico</span>
-          </div>
-          <div className="skill">
-            <strong>Italiano / Portugués</strong>
-            <span>Básico</span>
-          </div>
+        <div className="timeline">
+          <article className="timeline-item">
+            <div className="meta-row">
+              <h3>Español</h3>
+              <span className="when">Nativo</span>
+            </div>
+          </article>
+          <article className="timeline-item">
+            <div className="meta-row">
+              <h3>Inglés</h3>
+              <span className="when">Intermedio</span>
+            </div>
+          </article>
+          <article className="timeline-item">
+            <div className="meta-row">
+              <h3>Ruso</h3>
+              <span className="when">Básico</span>
+            </div>
+          </article>
+          <article className="timeline-item">
+            <div className="meta-row">
+              <h3>Italiano / Portugués</h3>
+              <span className="when">Básico</span>
+            </div>
+          </article>
         </div>
       </>
     );
@@ -180,10 +188,14 @@ function TabContent({ tab }: { tab: TabId }) {
       <h2>
         <span className="accent">▣</span> Sobre mí
       </h2>
-      <div className="cv-summary">
-        Soy Carlos Farid Rojas Gonzales, de Puente Piedra (Lima). Me interesa convertir el caos operativo diario
-        (Excels, estaciones, despachos) en sistemas simples que cualquiera del equipo pueda usar. Busco roles de
-        automatización de procesos, análisis de operaciones o BI junior en logística/transporte.
+      <div className="timeline">
+        <article className="timeline-item">
+          <p style={{ margin: 0, color: "var(--muted)", fontSize: "0.95rem", lineHeight: 1.55 }}>
+            Soy Carlos Farid Rojas Gonzales, de Puente Piedra (Lima). Me interesa convertir el caos operativo diario
+            (Excels, estaciones, despachos) en sistemas simples que cualquiera del equipo pueda usar. Busco roles de
+            automatización de procesos, análisis de operaciones o BI junior en logística/transporte.
+          </p>
+        </article>
       </div>
     </>
   );

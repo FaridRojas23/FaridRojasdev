@@ -12,10 +12,11 @@ import {
 import { usePathname, useRouter } from "next/navigation";
 import gsap from "gsap";
 
-const ROWS = 10;
-const CLOSE_DUR = 0.09;
-const OPEN_DUR = 0.085;
-const STAGGER = 0.022;
+const ROWS = 12;
+const CLOSE_DUR = 0.13;
+const OPEN_DUR = 0.11;
+const STAGGER = 0.028;
+const HOLD_DUR = 0.07;
 
 type PageTransitionContextValue = {
   navigate: (href: string) => void;
@@ -78,13 +79,14 @@ export default function PageTransitionProvider({ children }: { children: ReactNo
 
       isAnimatingRef.current = true;
       gsap.set(rows, { scaleY: 0, transformOrigin: "bottom center" });
-      gsap.to(rows, {
+      const tl = gsap.timeline({ onComplete: onCovered });
+      tl.to(rows, {
         scaleY: 1,
         duration: CLOSE_DUR,
         stagger: { each: STAGGER, from: "end" },
         ease: "power4.in",
-        onComplete: onCovered,
       });
+      tl.to({}, { duration: HOLD_DUR });
     },
     [getRows]
   );
