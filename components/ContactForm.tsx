@@ -12,6 +12,11 @@ const phonePrefixes = [
   { value: "+34", label: "+34" },
 ];
 
+// Web3Forms access keys are designed to be public (alias to your email).
+// Submitting from the browser avoids Cloudflare blocking Vercel server IPs.
+const WEB3FORMS_ACCESS_KEY =
+  process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY || "d42479d6-277a-41cc-9156-2151c2d215c7";
+
 export default function ContactForm() {
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [errorMessage, setErrorMessage] = useState("");
@@ -21,30 +26,57 @@ export default function ContactForm() {
     const form = event.currentTarget;
     const data = new FormData(form);
 
+    if (String(data.get("website") || "")) {
+      setStatus("success");
+      form.reset();
+      return;
+    }
+
+    const nombre = String(data.get("nombre") || "").trim();
+    const apellido = String(data.get("apellido") || "").trim();
+    const correo = String(data.get("correo") || "").trim();
+    const prefijo = String(data.get("prefijo") || "+51").trim();
+    const telefono = String(data.get("telefono") || "").trim();
+    const servicio = String(data.get("servicio") || "").trim();
+    const mensaje = String(data.get("mensaje") || "").trim();
+    const telefonoCompleto = telefono ? `${prefijo} ${telefono}` : "No indicado";
+    const fullName = `${nombre} ${apellido}`.trim();
+
     setStatus("loading");
     setErrorMessage("");
 
     try {
-      const response = await fetch("/api/contact", {
+      const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
         body: JSON.stringify({
-          nombre: data.get("nombre"),
-          apellido: data.get("apellido"),
-          correo: data.get("correo"),
-          prefijo: data.get("prefijo"),
-          telefono: data.get("telefono"),
-          servicio: data.get("servicio"),
-          mensaje: data.get("mensaje"),
-          website: data.get("website"),
+          access_key: WEB3FORMS_ACCESS_KEY,
+          subject: `Contacto web — ${servicio}`,
+          from_name: fullName,
+          name: fullName,
+          email: correo,
+          phone: telefonoCompleto,
+          servicio,
+          message: [
+            `Nombre: ${fullName}`,
+            `Correo: ${correo}`,
+            `Teléfono: ${telefonoCompleto}`,
+            `Servicio: ${servicio}`,
+            "",
+            mensaje || "(Sin mensaje)",
+          ].join("\n"),
+          botcheck: false,
         }),
       });
 
-      const result = (await response.json()) as { ok?: boolean; error?: string };
+      const result = (await response.json()) as { success?: boolean; message?: string };
 
-      if (!response.ok || !result.ok) {
+      if (!response.ok || !result.success) {
         setStatus("error");
-        setErrorMessage(result.error || "No se pudo enviar el mensaje.");
+        setErrorMessage(result.message || "No se pudo enviar el mensaje. Intenta de nuevo.");
         return;
       }
 
