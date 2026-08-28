@@ -59,7 +59,6 @@ export default function ServiciosPage() {
             <span className="tag">Power BI</span>
             <span className="tag">Excel avanzado</span>
             <span className="tag">KPIs</span>
-            <span className="tag">CECO</span>
           </div>
         </article>
 
