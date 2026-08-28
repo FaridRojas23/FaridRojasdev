@@ -17,7 +17,7 @@ const ibm = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "CV - Farid Rojas",
+  title: "Portafolio/faridrojas",
   description:
     "Carlos Farid Rojas — Automatización de procesos logísticos, análisis de datos y soluciones digitales.",
   icons: {
