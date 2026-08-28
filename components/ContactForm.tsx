@@ -13,7 +13,7 @@ const phonePrefixes = [
   { value: "+34", label: "+34" },
 ];
 
-/** Free Web3Forms key (public by design). Get yours at https://web3forms.com */
+/** Free Web3Forms key (public by design). Set NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY in Vercel. */
 const WEB3FORMS_ACCESS_KEY = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY || "";
 
 export default function ContactForm() {
