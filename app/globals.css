@@ -628,11 +628,19 @@ main {
   gap: 0.75rem;
 }
 .form-grid .full { grid-column: 1 / -1; }
-label {
+.form-field {
+  display: block;
+}
+.phone-input-group {
   display: grid;
-  gap: 0.35rem;
-  font-size: 0.78rem;
-  color: var(--muted);
+  grid-template-columns: 7.5rem 1fr;
+  gap: 0.5rem;
+  align-items: center;
+}
+.phone-prefix {
+  min-width: 0;
+  padding-left: 0.55rem;
+  padding-right: 0.35rem;
 }
 input, select, textarea {
   width: 100%;

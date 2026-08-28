@@ -30,7 +30,7 @@ export default function ContactoPage() {
               <strong className="info-value">(+51) 900 734 479</strong>
             </div>
           </a>
-          <a className="info-block" href="mailto:carlosfarirojasgonzal@gmail.com">
+          <a className="info-block" href="mailto:rojasgonzales2022@gmail.com">
             <div className="info-ico" aria-hidden="true">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
                 <path d="M4 6h16v12H4z" />
@@ -39,7 +39,7 @@ export default function ContactoPage() {
             </div>
             <div className="info-copy">
               <span className="info-label">Correo</span>
-              <strong className="info-value">carlosfarirojasgonzal@gmail.com</strong>
+              <strong className="info-value">rojasgonzales2022@gmail.com</strong>
             </div>
           </a>
           <div className="info-block">
