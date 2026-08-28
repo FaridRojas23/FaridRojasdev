@@ -344,34 +344,78 @@ main {
   position: sticky;
   top: 88px;
 }
+.cv-nav-indicator {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 48px;
+  background: var(--accent);
+  border-radius: 999px;
+  z-index: 0;
+  pointer-events: none;
+  will-change: transform, height;
+}
 .cv-nav button {
   text-align: left;
   border: 0;
   border-radius: 999px;
   padding: 0.85rem 1.1rem;
-  background: #151515;
+  background: transparent;
   color: var(--text);
   font-family: inherit;
   font-size: 0.95rem;
   cursor: pointer;
-  transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+  position: relative;
+  z-index: 1;
+  transition: color 0.25s ease, transform 0.2s ease;
 }
-.cv-nav button:hover { transform: translateX(2px); }
+.cv-nav button:hover:not(:disabled) { transform: translateX(3px); }
+.cv-nav button:disabled {
+  cursor: default;
+}
 .cv-nav button.active {
-  background: var(--accent);
   color: #04140d;
   font-weight: 700;
 }
-.cv-panel { display: none; }
-.cv-panel.active {
-  display: block;
-  animation: panelIn 0.35s ease;
+.cv-content-stage {
+  position: relative;
+  min-height: 380px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: linear-gradient(180deg, rgba(12, 12, 12, 0.92), rgba(8, 8, 8, 0.98));
+  overflow: hidden;
 }
-@keyframes panelIn {
-  from { opacity: 0; transform: translateY(8px); }
-  to { opacity: 1; transform: none; }
+.cv-stage-grid {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.35;
+  background-image:
+    linear-gradient(rgba(0, 255, 156, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 255, 156, 0.06) 1px, transparent 1px);
+  background-size: 28px 28px;
+  mask-image: linear-gradient(180deg, black 0%, black 70%, transparent 100%);
 }
-.cv-panel h2 {
+.cv-scanline {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  opacity: 0;
+  background: linear-gradient(
+    180deg,
+    transparent 42%,
+    rgba(0, 255, 156, 0.14) 50%,
+    transparent 58%
+  );
+}
+.cv-content {
+  position: relative;
+  z-index: 1;
+  padding: 1.35rem 1.4rem 1.5rem;
+}
+.cv-content h2 {
   margin: 0 0 0.95rem;
   font-family: var(--font-display);
   font-size: 1.55rem;
@@ -803,6 +847,17 @@ a.info-block:hover .info-value {
   .menu-toggle { display: inline-block; }
   .top-inner { position: relative; }
   .cv-nav { position: static; grid-template-columns: 1fr 1fr; }
+  .cv-nav-indicator { display: none; }
+  .cv-nav button {
+    background: #151515;
+  }
+  .cv-nav button.active {
+    background: var(--accent);
+    color: #04140d;
+  }
+  .cv-content-stage {
+    min-height: 0;
+  }
   .stats { gap: 0.5rem; }
 }
 
