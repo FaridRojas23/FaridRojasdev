@@ -20,6 +20,10 @@ export const metadata: Metadata = {
   title: "CV - Farid Rojas",
   description:
     "Carlos Farid Rojas — Automatización de procesos logísticos, análisis de datos y soluciones digitales.",
+  icons: {
+    icon: [{ url: "/icon.png", type: "image/png" }],
+    apple: [{ url: "/icon.png", type: "image/png" }],
+  },
 };
 
 export default function RootLayout({
