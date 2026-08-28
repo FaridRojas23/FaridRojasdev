@@ -39,7 +39,7 @@ export default function ContactoPage() {
             </div>
             <div className="info-copy">
               <span className="info-label">Correo</span>
-              <strong className="info-value">rojasgonzales2022@gmail.com</strong>
+              <strong className="info-value info-value--email">rojasgonzales2022@gmail.com</strong>
             </div>
           </a>
           <div className="info-block">

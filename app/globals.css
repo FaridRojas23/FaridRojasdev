@@ -605,7 +605,7 @@ main {
 /* Contact */
 .contact-grid {
   display: grid;
-  grid-template-columns: 1.35fr 0.75fr;
+  grid-template-columns: 1.28fr 0.92fr;
   gap: 2.4rem;
   align-items: center;
 }
@@ -632,15 +632,41 @@ main {
   display: block;
 }
 .phone-input-group {
-  display: grid;
-  grid-template-columns: 7.5rem 1fr;
-  gap: 0.5rem;
-  align-items: center;
+  display: flex;
+  align-items: stretch;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #0c0c0c;
+  overflow: hidden;
+}
+.phone-input-group:focus-within {
+  outline: 1px solid var(--accent);
+  border-color: var(--accent);
 }
 .phone-prefix {
+  width: 4.25rem;
+  flex-shrink: 0;
   min-width: 0;
-  padding-left: 0.55rem;
-  padding-right: 0.35rem;
+  border: 0;
+  border-right: 1px solid var(--line);
+  border-radius: 0;
+  background: #111;
+  padding: 0.75rem 0.35rem;
+  font-size: 0.82rem;
+  text-align: center;
+  appearance: none;
+  cursor: pointer;
+}
+.phone-input-group input {
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  flex: 1;
+  min-width: 0;
+}
+.phone-input-group input:focus {
+  outline: none;
+  border-color: transparent;
 }
 input, select, textarea {
   width: 100%;
@@ -709,7 +735,12 @@ a.info-block:hover .info-value {
   font-size: 1.05rem;
   font-weight: 600;
   color: var(--text);
-  word-break: break-word;
+  word-break: normal;
+}
+.info-value--email {
+  font-size: 0.88rem;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
 }
 
 @media (max-width: 900px) {

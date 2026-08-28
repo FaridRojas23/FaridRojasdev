@@ -5,13 +5,13 @@ import type { FormEvent } from "react";
 const EMAIL = "rojasgonzales2022@gmail.com";
 
 const phonePrefixes = [
-  { value: "+51", label: "🇵🇪 +51" },
-  { value: "+1", label: "🇺🇸 +1" },
-  { value: "+52", label: "🇲🇽 +52" },
-  { value: "+57", label: "🇨🇴 +57" },
-  { value: "+54", label: "🇦🇷 +54" },
-  { value: "+56", label: "🇨🇱 +56" },
-  { value: "+34", label: "🇪🇸 +34" },
+  { value: "+51", label: "+51" },
+  { value: "+1", label: "+1" },
+  { value: "+52", label: "+52" },
+  { value: "+57", label: "+57" },
+  { value: "+54", label: "+54" },
+  { value: "+56", label: "+56" },
+  { value: "+34", label: "+34" },
 ];
 
 export default function ContactForm() {
@@ -74,7 +74,11 @@ export default function ContactForm() {
           </select>
         </div>
         <div className="form-field full">
-          <textarea name="mensaje" placeholder="Mensaje" aria-label="Mensaje" />
+          <textarea
+            name="mensaje"
+            placeholder="Cuéntame qué necesitas…"
+            aria-label="Mensaje"
+          />
         </div>
         <div className="full">
           <button className="btn btn-solid" type="submit">
