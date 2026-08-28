@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
-import { CONTACT_EMAIL } from "@/lib/contact-links";
 
 const phonePrefixes = [
   { value: "+51", label: "+51" },
@@ -13,9 +12,6 @@ const phonePrefixes = [
   { value: "+34", label: "+34" },
 ];
 
-/** Free Web3Forms key (public by design). Set NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY in Vercel. */
-const WEB3FORMS_ACCESS_KEY = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY || "";
-
 export default function ContactForm() {
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [errorMessage, setErrorMessage] = useState("");
@@ -25,93 +21,30 @@ export default function ContactForm() {
     const form = event.currentTarget;
     const data = new FormData(form);
 
-    // Honeypot
-    if (String(data.get("website") || "")) {
-      setStatus("success");
-      form.reset();
-      return;
-    }
-
-    const nombre = String(data.get("nombre") || "").trim();
-    const apellido = String(data.get("apellido") || "").trim();
-    const correo = String(data.get("correo") || "").trim();
-    const prefijo = String(data.get("prefijo") || "+51").trim();
-    const telefono = String(data.get("telefono") || "").trim();
-    const servicio = String(data.get("servicio") || "").trim();
-    const mensaje = String(data.get("mensaje") || "").trim();
-    const telefonoCompleto = telefono ? `${prefijo} ${telefono}` : "No indicado";
-
     setStatus("loading");
     setErrorMessage("");
 
     try {
-      // Prefer Web3Forms when configured (most reliable free option)
-      if (WEB3FORMS_ACCESS_KEY) {
-        const res = await fetch("https://api.web3forms.com/submit", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-          },
-          body: JSON.stringify({
-            access_key: WEB3FORMS_ACCESS_KEY,
-            subject: `Contacto web — ${servicio}`,
-            from_name: "Portafolio Farid Rojas",
-            name: `${nombre} ${apellido}`.trim(),
-            email: correo,
-            phone: telefonoCompleto,
-            service: servicio,
-            message: mensaje || "(Sin mensaje)",
-            botcheck: false,
-          }),
-        });
-        const result = (await res.json()) as { success?: boolean; message?: string };
-        if (!result.success) {
-          setStatus("error");
-          setErrorMessage(result.message || "No se pudo enviar. Intenta de nuevo.");
-          return;
-        }
-        setStatus("success");
-        form.reset();
-        return;
-      }
-
-      // Fallback: FormSubmit (free, no key) — from the browser, not Vercel
-      const res = await fetch(`https://formsubmit.co/ajax/${CONTACT_EMAIL}`, {
+      const response = await fetch("/api/contact", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          name: `${nombre} ${apellido}`.trim(),
-          email: correo,
-          _replyto: correo,
-          _subject: `Contacto web — ${servicio}`,
-          Telefono: telefonoCompleto,
-          Servicio: servicio,
-          Mensaje: mensaje || "(Sin mensaje)",
-          _template: "table",
-          _captcha: false,
+          nombre: data.get("nombre"),
+          apellido: data.get("apellido"),
+          correo: data.get("correo"),
+          prefijo: data.get("prefijo"),
+          telefono: data.get("telefono"),
+          servicio: data.get("servicio"),
+          mensaje: data.get("mensaje"),
+          website: data.get("website"),
         }),
       });
 
-      const result = (await res.json()) as {
-        success?: boolean | string;
-        message?: string;
-      };
-      const ok = result.success === true || result.success === "true";
+      const result = (await response.json()) as { ok?: boolean; error?: string };
 
-      if (!ok) {
-        const msg = (result.message || "").toLowerCase();
+      if (!response.ok || !result.ok) {
         setStatus("error");
-        if (msg.includes("confirm") || msg.includes("activate") || msg.includes("email")) {
-          setErrorMessage(
-            `Revisa tu Gmail (${CONTACT_EMAIL}) y confirma el enlace de FormSubmit (solo una vez). Luego vuelve a enviar.`
-          );
-        } else {
-          setErrorMessage(result.message || "No se pudo enviar. Intenta de nuevo.");
-        }
+        setErrorMessage(result.error || "No se pudo enviar el mensaje.");
         return;
       }
 
@@ -119,7 +52,7 @@ export default function ContactForm() {
       form.reset();
     } catch {
       setStatus("error");
-      setErrorMessage("Error de conexión. Revisa tu internet e intenta de nuevo.");
+      setErrorMessage("Error de conexión. Intenta de nuevo.");
     }
   }
 
