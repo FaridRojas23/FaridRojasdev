@@ -31,7 +31,7 @@ export default function HomePage() {
             </a>
             <a
               className="icon-btn"
-              href="https://www.linkedin.com/"
+              href="https://www.linkedin.com/in/carlos-farid-rojas-gonzales-71b33a202/"
               target="_blank"
               rel="noopener"
               aria-label="LinkedIn"

@@ -140,6 +140,9 @@ export default function CurriculumView() {
           </div>
 
           <h3 className="tech-title">Tecnologías</h3>
+          <p className="tech-subtitle">
+            Tecnologías que he utilizado en proyectos personales y profesionales.
+          </p>
           {tab === "skills" ? <TechGrid /> : null}
         </section>
 

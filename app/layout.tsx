@@ -28,6 +28,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es" className={`${syne.variable} ${ibm.variable}`}>
+      <head>
+        <link rel="preconnect" href="https://api.iconify.design" crossOrigin="anonymous" />
+      </head>
       <body>
         <Header />
         {children}
