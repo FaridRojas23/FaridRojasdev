@@ -624,8 +624,14 @@ main {
 .contact-card > p { color: var(--muted); margin: 0 0 1rem; }
 .form-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.58fr) minmax(0, 0.78fr);
+  grid-template-columns: 1fr 1fr;
   gap: 0.75rem;
+}
+.form-row-contact {
+  display: grid;
+  grid-template-columns: minmax(0, 1.46fr) minmax(0, 0.88fr);
+  gap: 0.75rem;
+  grid-column: 1 / -1;
 }
 .form-grid .full { grid-column: 1 / -1; }
 .form-field {
@@ -767,9 +773,8 @@ a.info-block:hover .info-value {
     grid-template-columns: 1fr;
     gap: 0.65rem;
   }
-  .form-field--email,
-  .form-field--phone {
-    grid-column: 1;
+  .form-row-contact {
+    grid-template-columns: 1fr;
   }
   .side-info {
     gap: 1.25rem;
