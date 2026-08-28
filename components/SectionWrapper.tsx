@@ -20,8 +20,8 @@ export default function SectionWrapper({
   const isInView = useInView(ref, { once: true, amount: 0.18, margin: "0px 0px -8% 0px" });
   const reduceMotion = useReducedMotion();
 
-  const hidden = { opacity: 0, y: 64, filter: "blur(14px)", scale: 0.98 };
-  const visible = { opacity: 1, y: 0, filter: "blur(0px)", scale: 1 };
+  const hidden = { opacity: 0, y: 40 };
+  const visible = { opacity: 1, y: 0 };
 
   return (
     <motion.section
@@ -30,7 +30,7 @@ export default function SectionWrapper({
       className={className}
       initial={reduceMotion ? visible : hidden}
       animate={reduceMotion || isInView ? visible : hidden}
-      transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay }}
+      transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1], delay }}
     >
       {children}
     </motion.section>

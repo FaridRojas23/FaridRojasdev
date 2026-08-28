@@ -25,6 +25,6 @@ export const technologies: Technology[] = [
   { name: "PostgreSQL", slug: "postgresql", color: "4169E1" },
 ];
 
-export function technologyIconUrl(slug: string, color: string) {
-  return `https://api.iconify.design/simple-icons/${slug}.svg?color=%23${color}`;
+export function technologyIconUrl(slug: string) {
+  return `/icons/${slug}.svg`;
 }

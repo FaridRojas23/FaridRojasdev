@@ -7,13 +7,13 @@ import "./globals.css";
 const syne = Syne({
   subsets: ["latin"],
   variable: "--font-syne",
-  weight: ["600", "700", "800"],
+  weight: ["700", "800"],
 });
 
 const ibm = IBM_Plex_Mono({
   subsets: ["latin"],
   variable: "--font-ibm",
-  weight: ["400", "500", "600", "700"],
+  weight: ["400", "600"],
 });
 
 export const metadata: Metadata = {
@@ -35,7 +35,6 @@ export default function RootLayout({
   return (
     <html lang="es" className={`${syne.variable} ${ibm.variable}`}>
       <head>
-        <link rel="preconnect" href="https://api.iconify.design" crossOrigin="anonymous" />
         <link rel="icon" href="/icon.png?v=3" type="image/png" sizes="512x512" />
         <link rel="apple-touch-icon" href="/apple-icon.png?v=3" />
       </head>

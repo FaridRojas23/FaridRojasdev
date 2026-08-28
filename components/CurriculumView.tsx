@@ -1,8 +1,10 @@
 "use client";
 
 import { useLayoutEffect, useRef, useState } from "react";
+import dynamic from "next/dynamic";
 import gsap from "gsap";
-import TechGrid from "@/components/TechGrid";
+
+const TechGrid = dynamic(() => import("@/components/TechGrid"), { ssr: false });
 
 const WIPE_IN = 0.17;
 const WIPE_OUT = 0.15;
