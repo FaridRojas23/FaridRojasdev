@@ -9,7 +9,10 @@ export default function CurriculumPage() {
         <h1 className="page-title">Currículum</h1>
       </SectionWrapper>
       <SectionWrapper delay={0.08}>
-        <CurriculumView />
+        <div className="page-shell page-shell--cv">
+          <div className="page-shell-grid" aria-hidden="true" />
+          <CurriculumView />
+        </div>
       </SectionWrapper>
     </main>
   );

@@ -80,7 +80,116 @@ function TabContent({ tab }: { tab: TabId }) {
               <span className="where">Universidad Tecnológica del Perú</span>
             </div>
             <p style={{ margin: 0, color: "var(--muted)", fontSize: "0.88rem" }}>
-              Formación en negocio, comercio y operaciones, aplicada hoy a digitalizar procesos logísticos.
+              Formación en negocio, comercio exterior y operaciones internacionales, aplicada hoy a digitalizar
+              procesos logísticos.
+            </p>
+          </article>
+          <article className="timeline-item">
+            <div className="meta-row">
+              <h3>Inglés — nivel intermedio</h3>
+              <span className="when">ICPNA</span>
+            </div>
+            <div className="meta-row">
+              <span className="where">Instituto Cultural Peruano Norteamericano</span>
+            </div>
+            <p style={{ margin: 0, color: "var(--muted)", fontSize: "0.88rem" }}>
+              Inglés técnico y conversacional para comercio internacional y documentación operativa.
+            </p>
+          </article>
+          <article className="timeline-item">
+            <div className="meta-row">
+              <h3>Auxiliar de despacho aduanero</h3>
+              <span className="when">ERCA</span>
+            </div>
+            <div className="meta-row">
+              <span className="where">Escuela de Comercio Aduanero</span>
+            </div>
+            <p style={{ margin: 0, color: "var(--muted)", fontSize: "0.88rem" }}>
+              Procedimientos aduaneros, documentación de importación/exportación y operaciones de comercio exterior.
+            </p>
+          </article>
+          <article className="timeline-item">
+            <div className="meta-row">
+              <h3>Python para automatización y datos</h3>
+              <span className="when">Curso</span>
+            </div>
+            <div className="meta-row">
+              <span className="where">Formación tecnológica</span>
+            </div>
+            <p style={{ margin: 0, color: "var(--muted)", fontSize: "0.88rem" }}>
+              Scripts, limpieza de datos, automatización de reportes y extracción de información operativa.
+            </p>
+          </article>
+          <article className="timeline-item">
+            <div className="meta-row">
+              <h3>MySQL y bases de datos</h3>
+              <span className="when">Curso</span>
+            </div>
+            <div className="meta-row">
+              <span className="where">Formación tecnológica</span>
+            </div>
+            <p style={{ margin: 0, color: "var(--muted)", fontSize: "0.88rem" }}>
+              Consultas, modelado básico y manejo de datos para reportes y dashboards.
+            </p>
+          </article>
+          <article className="timeline-item">
+            <div className="meta-row">
+              <h3>Excel avanzado y Power BI</h3>
+              <span className="when">Curso</span>
+            </div>
+            <div className="meta-row">
+              <span className="where">Análisis de negocios</span>
+            </div>
+            <p style={{ margin: 0, color: "var(--muted)", fontSize: "0.88rem" }}>
+              KPIs, tablas dinámicas, dashboards y reportes para decisiones en logística y costos.
+            </p>
+          </article>
+          <article className="timeline-item">
+            <div className="meta-row">
+              <h3>Automatización web con Playwright</h3>
+              <span className="when">Curso</span>
+            </div>
+            <div className="meta-row">
+              <span className="where">Formación tecnológica</span>
+            </div>
+            <p style={{ margin: 0, color: "var(--muted)", fontSize: "0.88rem" }}>
+              Descarga automática de reportes, RPA ligero y flujos sin intervención manual.
+            </p>
+          </article>
+          <article className="timeline-item">
+            <div className="meta-row">
+              <h3>APIs REST con FastAPI</h3>
+              <span className="when">Curso</span>
+            </div>
+            <div className="meta-row">
+              <span className="where">Desarrollo web</span>
+            </div>
+            <p style={{ margin: 0, color: "var(--muted)", fontSize: "0.88rem" }}>
+              Servicios backend para dashboards, carga de Excel y despliegue en la nube.
+            </p>
+          </article>
+          <article className="timeline-item">
+            <div className="meta-row">
+              <h3>Git, GitHub y control de versiones</h3>
+              <span className="when">Curso</span>
+            </div>
+            <div className="meta-row">
+              <span className="where">Formación tecnológica</span>
+            </div>
+            <p style={{ margin: 0, color: "var(--muted)", fontSize: "0.88rem" }}>
+              Repositorios, branches y colaboración en proyectos de automatización y datos.
+            </p>
+          </article>
+          <article className="timeline-item">
+            <div className="meta-row">
+              <h3>Comercio internacional y cadena de suministro</h3>
+              <span className="when">Complemento</span>
+            </div>
+            <div className="meta-row">
+              <span className="where">Negocios internacionales</span>
+            </div>
+            <p style={{ margin: 0, color: "var(--muted)", fontSize: "0.88rem" }}>
+              Incoterms, logística internacional, costos de importación y coordinación con operaciones de transporte.
             </p>
           </article>
         </div>

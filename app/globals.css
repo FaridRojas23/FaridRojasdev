@@ -164,6 +164,9 @@ main {
   margin: 0 auto;
   padding: 3rem 0 4.5rem;
 }
+main > section {
+  width: 100%;
+}
 .hero {
   display: grid;
   grid-template-columns: 1.15fr 0.85fr;
@@ -270,12 +273,21 @@ main {
 /* Shared full-width panel */
 .page-shell {
   position: relative;
+  width: 100%;
   min-height: 480px;
   border: 1px solid var(--line);
   border-radius: 18px;
   background: linear-gradient(180deg, rgba(12, 12, 12, 0.92), rgba(8, 8, 8, 0.98));
   overflow: hidden;
   padding: 1.35rem 1.4rem 1.5rem;
+  box-sizing: border-box;
+}
+.page-shell--cv {
+  padding: 1.15rem 1.25rem 1.35rem;
+}
+.page-shell--cv .cv-layout {
+  position: relative;
+  z-index: 1;
 }
 .page-shell-grid {
   position: absolute;
@@ -385,9 +397,10 @@ main {
 /* Curriculum layout */
 .cv-layout {
   display: grid;
-  grid-template-columns: 220px 1fr;
+  grid-template-columns: 220px minmax(0, 1fr);
   gap: 1.5rem;
   align-items: start;
+  width: 100%;
 }
 .cv-nav {
   display: grid;
@@ -431,10 +444,10 @@ main {
 }
 .cv-content-stage {
   position: relative;
-  min-height: 480px;
-  border: 1px solid var(--line);
-  border-radius: 18px;
-  background: linear-gradient(180deg, rgba(12, 12, 12, 0.92), rgba(8, 8, 8, 0.98));
+  min-height: 400px;
+  border: 0;
+  border-radius: 14px;
+  background: rgba(0, 0, 0, 0.22);
   overflow: hidden;
 }
 .cv-stage-grid {
