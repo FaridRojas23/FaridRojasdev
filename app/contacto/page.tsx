@@ -12,7 +12,10 @@ import {
 export default function ContactoPage() {
   return (
     <main>
-      <SectionWrapper className="contact-grid">
+      <SectionWrapper>
+        <div className="page-shell">
+          <div className="page-shell-grid" aria-hidden="true" />
+          <div className="contact-grid">
         <section className="contact-card">
           <h2>Trabajemos juntos</h2>
           <p>
@@ -72,6 +75,8 @@ export default function ContactoPage() {
             </div>
           </a>
         </aside>
+          </div>
+        </div>
       </SectionWrapper>
     </main>
   );

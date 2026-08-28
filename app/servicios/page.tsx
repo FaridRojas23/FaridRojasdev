@@ -11,7 +11,10 @@ export default function ServiciosPage() {
         </p>
       </SectionWrapper>
 
-      <SectionWrapper className="cards" delay={0.08}>
+      <SectionWrapper delay={0.08}>
+        <div className="page-shell">
+          <div className="page-shell-grid" aria-hidden="true" />
+          <div className="cards">
         <article className="card">
           <div className="card-top">
             <div className="card-num">01</div>
@@ -107,6 +110,8 @@ export default function ServiciosPage() {
             <span className="tag">Automatización</span>
           </div>
         </article>
+          </div>
+        </div>
       </SectionWrapper>
     </main>
   );

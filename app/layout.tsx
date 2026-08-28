@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { IBM_Plex_Mono, Syne } from "next/font/google";
 import Header from "@/components/Header";
+import PageTransitionProvider from "@/components/PageTransitionProvider";
 import "./globals.css";
 
 const syne = Syne({
@@ -32,8 +33,10 @@ export default function RootLayout({
         <link rel="preconnect" href="https://api.iconify.design" crossOrigin="anonymous" />
       </head>
       <body>
-        <Header />
-        {children}
+        <PageTransitionProvider>
+          <Header />
+          {children}
+        </PageTransitionProvider>
       </body>
     </html>
   );

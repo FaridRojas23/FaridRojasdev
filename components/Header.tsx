@@ -1,8 +1,8 @@
 "use client";
 
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
+import TransitionLink from "@/components/TransitionLink";
 
 const links = [
   { href: "/", label: "Inicio" },
@@ -22,19 +22,19 @@ export default function Header() {
   return (
     <header className="top">
       <div className="wrap top-inner">
-        <Link className="brand" href="/">
+        <TransitionLink className="brand" href="/">
           Farid<span>.</span>
-        </Link>
+        </TransitionLink>
         <nav className={`nav${open ? " open" : ""}`} id="mainNav">
           {links.map((link) => (
-            <Link
+            <TransitionLink
               key={link.href}
               href={link.href}
               className={isActive(link.href) ? "active" : ""}
               onClick={() => setOpen(false)}
             >
               {link.label}
-            </Link>
+            </TransitionLink>
           ))}
         </nav>
         <button

@@ -267,6 +267,57 @@ main {
   font-size: 1.05rem;
 }
 
+/* Shared full-width panel */
+.page-shell {
+  position: relative;
+  min-height: 380px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: linear-gradient(180deg, rgba(12, 12, 12, 0.92), rgba(8, 8, 8, 0.98));
+  overflow: hidden;
+  padding: 1.35rem 1.4rem 1.5rem;
+}
+.page-shell-grid {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.35;
+  background-image:
+    linear-gradient(rgba(0, 255, 156, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 255, 156, 0.06) 1px, transparent 1px);
+  background-size: 28px 28px;
+  mask-image: linear-gradient(180deg, black 0%, black 70%, transparent 100%);
+}
+.page-shell .project {
+  position: relative;
+  z-index: 1;
+}
+.page-shell .cards {
+  position: relative;
+  z-index: 1;
+}
+.page-shell .contact-grid {
+  position: relative;
+  z-index: 1;
+}
+
+/* Full-screen route transition */
+.route-transition {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  pointer-events: none;
+  display: grid;
+  grid-template-rows: repeat(10, 1fr);
+}
+.route-transition-row {
+  background: linear-gradient(90deg, #060606 0%, #101010 52%, #080808 100%);
+  border-bottom: 1px solid rgba(0, 255, 156, 0.12);
+  box-shadow: inset 0 -2px 0 rgba(0, 255, 156, 0.08);
+  transform: scaleY(0);
+  will-change: transform;
+}
+
 .cards {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -656,15 +707,16 @@ main {
 /* Contact */
 .contact-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.18fr) minmax(0, 1.02fr);
-  gap: 2rem;
-  align-items: center;
+  grid-template-columns: minmax(0, 1fr) 220px;
+  gap: 1.5rem;
+  align-items: stretch;
 }
 .contact-card {
-  background: #121212;
-  border: 1px solid var(--line);
-  border-radius: 20px;
-  padding: 1.5rem;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  padding: 0;
+  min-height: 0;
 }
 .contact-card h2 {
   margin: 0 0 0.85rem;
@@ -806,11 +858,12 @@ a.info-block:hover .info-value {
     width: min(1180px, calc(100% - 1.5rem));
   }
   .contact-grid {
-    gap: 1.5rem;
+    gap: 1.25rem;
     align-items: stretch;
   }
-  .contact-card {
-    padding: 1.25rem;
+  .page-shell {
+    min-height: 0;
+    padding: 1.15rem 1.1rem 1.25rem;
   }
   .contact-card h2 {
     font-size: 1.75rem;
