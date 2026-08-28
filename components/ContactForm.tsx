@@ -42,7 +42,7 @@ export default function ContactForm() {
         <div className="form-field">
           <input name="apellido" placeholder="Apellido" aria-label="Apellido" />
         </div>
-        <div className="form-field">
+        <div className="form-field form-field--email">
           <input
             name="correo"
             type="email"
@@ -51,7 +51,7 @@ export default function ContactForm() {
             aria-label="Correo electrónico"
           />
         </div>
-        <div className="form-field phone-field">
+        <div className="form-field form-field--phone phone-field">
           <div className="phone-input-group">
             <select name="prefijo" defaultValue="+51" className="phone-prefix" aria-label="Prefijo telefónico">
               {phonePrefixes.map((prefix) => (

@@ -605,8 +605,8 @@ main {
 /* Contact */
 .contact-grid {
   display: grid;
-  grid-template-columns: 1.28fr 0.92fr;
-  gap: 2.4rem;
+  grid-template-columns: minmax(0, 1.18fr) minmax(0, 1.02fr);
+  gap: 2rem;
   align-items: center;
 }
 .contact-card {
@@ -624,7 +624,7 @@ main {
 .contact-card > p { color: var(--muted); margin: 0 0 1rem; }
 .form-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(0, 1.58fr) minmax(0, 0.78fr);
   gap: 0.75rem;
 }
 .form-grid .full { grid-column: 1 / -1; }
@@ -644,15 +644,15 @@ main {
   border-color: var(--accent);
 }
 .phone-prefix {
-  width: 4.25rem;
+  width: 3.1rem;
   flex-shrink: 0;
   min-width: 0;
   border: 0;
   border-right: 1px solid var(--line);
   border-radius: 0;
   background: #111;
-  padding: 0.75rem 0.35rem;
-  font-size: 0.82rem;
+  padding: 0.7rem 0.15rem;
+  font-size: 0.78rem;
   text-align: center;
   appearance: none;
   cursor: pointer;
@@ -663,6 +663,8 @@ main {
   background: transparent;
   flex: 1;
   min-width: 0;
+  padding-left: 0.55rem;
+  padding-right: 0.45rem;
 }
 .phone-input-group input:focus {
   outline: none;
@@ -738,14 +740,44 @@ a.info-block:hover .info-value {
   word-break: normal;
 }
 .info-value--email {
-  font-size: 0.88rem;
-  letter-spacing: -0.01em;
+  font-size: 1.05rem;
+  letter-spacing: -0.02em;
   white-space: nowrap;
 }
 
 @media (max-width: 900px) {
   .hero, .cards, .cv-layout, .project, .contact-grid, .stats, .form-grid, .skill-grid, .tech-grid {
     grid-template-columns: 1fr;
+  }
+  main {
+    padding: 2rem 0 3.5rem;
+    width: min(1180px, calc(100% - 1.5rem));
+  }
+  .contact-grid {
+    gap: 1.5rem;
+    align-items: stretch;
+  }
+  .contact-card {
+    padding: 1.25rem;
+  }
+  .contact-card h2 {
+    font-size: 1.75rem;
+  }
+  .form-grid {
+    grid-template-columns: 1fr;
+    gap: 0.65rem;
+  }
+  .form-field--email,
+  .form-field--phone {
+    grid-column: 1;
+  }
+  .side-info {
+    gap: 1.25rem;
+    padding: 0.25rem 0 0.5rem;
+  }
+  .info-value--email {
+    white-space: nowrap;
+    font-size: 1.05rem;
   }
   .tech-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -780,4 +812,44 @@ a.info-block:hover .info-value {
   .top-inner { position: relative; }
   .cv-nav { position: static; grid-template-columns: 1fr 1fr; }
   .stats { gap: 0.5rem; }
+}
+
+@media (max-width: 600px) {
+  .wrap {
+    width: min(1180px, calc(100% - 1.25rem));
+  }
+  .contact-card h2 {
+    font-size: 1.55rem;
+  }
+  .contact-card > p {
+    font-size: 0.95rem;
+  }
+  .form-grid .btn {
+    width: 100%;
+  }
+  .phone-prefix {
+    width: 2.9rem;
+    font-size: 0.74rem;
+  }
+  .info-block {
+    gap: 0.85rem;
+  }
+  .info-ico {
+    width: 42px;
+    height: 42px;
+  }
+  .info-value,
+  .info-value--email {
+    font-size: 0.98rem;
+  }
+  .top-inner {
+    padding: 0.9rem 0;
+  }
+}
+
+@media (max-width: 380px) {
+  .info-value--email {
+    font-size: 0.9rem;
+    letter-spacing: -0.03em;
+  }
 }
