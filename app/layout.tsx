@@ -21,8 +21,9 @@ export const metadata: Metadata = {
   description:
     "Carlos Farid Rojas — Automatización de procesos logísticos, análisis de datos y soluciones digitales.",
   icons: {
-    icon: [{ url: "/icon.png", type: "image/png" }],
-    apple: [{ url: "/icon.png", type: "image/png" }],
+    icon: [{ url: "/icon.png?v=3", type: "image/png", sizes: "512x512" }],
+    apple: [{ url: "/apple-icon.png?v=3", type: "image/png" }],
+    shortcut: [{ url: "/icon.png?v=3", type: "image/png" }],
   },
 };
 
@@ -35,6 +36,8 @@ export default function RootLayout({
     <html lang="es" className={`${syne.variable} ${ibm.variable}`}>
       <head>
         <link rel="preconnect" href="https://api.iconify.design" crossOrigin="anonymous" />
+        <link rel="icon" href="/icon.png?v=3" type="image/png" sizes="512x512" />
+        <link rel="apple-touch-icon" href="/apple-icon.png?v=3" />
       </head>
       <body>
         <PageTransitionProvider>
